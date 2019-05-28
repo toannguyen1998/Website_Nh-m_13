@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WebNuocHoaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CTDH">
+    <Key>
+      <PropertyRef Name="MaCTDH" />
+    </Key>
+    <Property Name="MaCTDH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaDH" Type="Int32" />
+    <Property Name="MaSP" Type="Int32" />
+    <Property Name="soluonng" Type="Int32" />
+    <Property Name="dongia" Type="Decimal" Precision="18" Scale="0" />
+    <NavigationProperty Name="DonHang" Relationship="Self.FK__CTDH__MaDH__173876EA" FromRole="CTDH" ToRole="DonHang" />
+    <NavigationProperty Name="SP" Relationship="Self.FK__CTDH__MaSP__182C9B23" FromRole="CTDH" ToRole="SP" />
+  </EntityType>
+  <EntityType Name="DonHang">
+    <Key>
+      <PropertyRef Name="MaDH" />
+    </Key>
+    <Property Name="MaDH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DaThanhToan" Type="Int32" />
+    <Property Name="TinhtrangGH" Type="Int32" />
+    <Property Name="ngaydat" Type="DateTime" Precision="0" />
+    <Property Name="ngaygiao" Type="DateTime" Precision="0" />
+    <Property Name="MaKH" Type="Int32" />
+    <NavigationProperty Name="CTDHs" Relationship="Self.FK__CTDH__MaDH__173876EA" FromRole="DonHang" ToRole="CTDH" />
+    <NavigationProperty Name="KhachHang" Relationship="Self.FK__DonHang__MaKH__0CBAE877" FromRole="DonHang" ToRole="KhachHang" />
+  </EntityType>
+  <EntityType Name="KhachHang">
+    <Key>
+      <PropertyRef Name="MaKH" />
+    </Key>
+    <Property Name="MaKH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HoTen" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Taikhoan" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MatKhau" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DiaChi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="SDT" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+    <Property Name="GT" Type="Int32" />
+    <Property Name="NS" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="DonHangs" Relationship="Self.FK__DonHang__MaKH__0CBAE877" FromRole="KhachHang" ToRole="DonHang" />
+  </EntityType>
+  <EntityType Name="LoaiSP">
+    <Key>
+      <PropertyRef Name="MaLSP" />
+    </Key>
+    <Property Name="MaLSP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenLSP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SPs" Relationship="Self.FK__SP__MaLSP__117F9D94" FromRole="LoaiSP" ToRole="SP" />
+  </EntityType>
+  <EntityType Name="NhanHieu">
+    <Key>
+      <PropertyRef Name="MaNH" />
+    </Key>
+    <Property Name="MaNH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenNH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SPs" Relationship="Self.FK__SP__MaNH__1273C1CD" FromRole="NhanHieu" ToRole="SP" />
+  </EntityType>
+  <EntityType Name="SP">
+    <Key>
+      <PropertyRef Name="MaSP" />
+    </Key>
+    <Property Name="MaSP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenSP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Gia" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Khoiluong" Type="Int32" />
+    <Property Name="Anh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MoTa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SolgTon" Type="Int32" />
+    <Property Name="MaLSP" Type="Int32" />
+    <Property Name="MaNH" Type="Int32" />
+    <NavigationProperty Name="CTDHs" Relationship="Self.FK__CTDH__MaSP__182C9B23" FromRole="SP" ToRole="CTDH" />
+    <NavigationProperty Name="LoaiSP" Relationship="Self.FK__SP__MaLSP__117F9D94" FromRole="SP" ToRole="LoaiSP" />
+    <NavigationProperty Name="NhanHieu" Relationship="Self.FK__SP__MaNH__1273C1CD" FromRole="SP" ToRole="NhanHieu" />
+    <Property Name="Moi" Type="Int32" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK__CTDH__MaDH__173876EA">
+    <End Role="DonHang" Type="Self.DonHang" Multiplicity="0..1" />
+    <End Role="CTDH" Type="Self.CTDH" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DonHang">
+        <PropertyRef Name="MaDH" />
+      </Principal>
+      <Dependent Role="CTDH">
+        <PropertyRef Name="MaDH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CTDH__MaSP__182C9B23">
+    <End Role="SP" Type="Self.SP" Multiplicity="0..1" />
+    <End Role="CTDH" Type="Self.CTDH" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SP">
+        <PropertyRef Name="MaSP" />
+      </Principal>
+      <Dependent Role="CTDH">
+        <PropertyRef Name="MaSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DonHang__MaKH__0CBAE877">
+    <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
+    <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KhachHang">
+        <PropertyRef Name="MaKH" />
+      </Principal>
+      <Dependent Role="DonHang">
+        <PropertyRef Name="MaKH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SP__MaLSP__117F9D94">
+    <End Role="LoaiSP" Type="Self.LoaiSP" Multiplicity="0..1" />
+    <End Role="SP" Type="Self.SP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoaiSP">
+        <PropertyRef Name="MaLSP" />
+      </Principal>
+      <Dependent Role="SP">
+        <PropertyRef Name="MaLSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SP__MaNH__1273C1CD">
+    <End Role="NhanHieu" Type="Self.NhanHieu" Multiplicity="0..1" />
+    <End Role="SP" Type="Self.SP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NhanHieu">
+        <PropertyRef Name="MaNH" />
+      </Principal>
+      <Dependent Role="SP">
+        <PropertyRef Name="MaNH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="WebNuocHoaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CTDHs" EntityType="Self.CTDH" />
+    <EntitySet Name="DonHangs" EntityType="Self.DonHang" />
+    <EntitySet Name="KhachHangs" EntityType="Self.KhachHang" />
+    <EntitySet Name="LoaiSPs" EntityType="Self.LoaiSP" />
+    <EntitySet Name="NhanHieux" EntityType="Self.NhanHieu" />
+    <EntitySet Name="SPs" EntityType="Self.SP" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <AssociationSet Name="FK__CTDH__MaDH__173876EA" Association="Self.FK__CTDH__MaDH__173876EA">
+      <End Role="DonHang" EntitySet="DonHangs" />
+      <End Role="CTDH" EntitySet="CTDHs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CTDH__MaSP__182C9B23" Association="Self.FK__CTDH__MaSP__182C9B23">
+      <End Role="SP" EntitySet="SPs" />
+      <End Role="CTDH" EntitySet="CTDHs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DonHang__MaKH__0CBAE877" Association="Self.FK__DonHang__MaKH__0CBAE877">
+      <End Role="KhachHang" EntitySet="KhachHangs" />
+      <End Role="DonHang" EntitySet="DonHangs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SP__MaLSP__117F9D94" Association="Self.FK__SP__MaLSP__117F9D94">
+      <End Role="LoaiSP" EntitySet="LoaiSPs" />
+      <End Role="SP" EntitySet="SPs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SP__MaNH__1273C1CD" Association="Self.FK__SP__MaNH__1273C1CD">
+      <End Role="NhanHieu" EntitySet="NhanHieux" />
+      <End Role="SP" EntitySet="SPs" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
